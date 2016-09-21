@@ -45,13 +45,13 @@ class Cuisine
         }
       function save()
       {
-          $GLOBALS['DB']->exec("INSERT INTO Cuisine (name, cuisine_id) VALUES ('{$this->getName()}');");
-          $this->id = $GLOBALS['DB']->lastInsertId();
+          $GLOBALS['DB']->exec("INSERT INTO Cuisine (name) VALUES ('{$this->getName()}');");
+          $this->cuisine_id = $GLOBALS['DB']->lastInsertId();
       }
 
       static function deleteAll()
       {
-          $GLOBALS['DB']->exec("DELETE from patients");
+          $GLOBALS['DB']->exec("DELETE from Cuisine");
       }
 
 
