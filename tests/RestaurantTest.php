@@ -64,6 +64,30 @@
             $this->assertEquals($test_restaurant, $result[0]);
 
         }
+        function test_getAll()
+        {
+            //ARRANGE
+            $cuisine_name = "Chinese";
+            $id = null;
+            $test_cuisine = new Cuisine($cuisine_name, $id);
+            $test_cuisine->save();
+
+            $restaurant_name = "McDrugs";
+            $restaurant_name2 = "Rosarios";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($id, $restaurant_name, $cuisine_id);
+            $test_restaurant2 = new Restaurant($id, $restaurant_name2, $cuisine_id);
+            $test_restaurant->save();
+            $test_restaurant2->save();
+
+            //ACT
+            $result = Restaurant::getAll();
+
+            //ASSERT
+            $this->assertEquals([$test_restaurant, $test_restaurant2], $result);
+
+
+        }
 
 
 
