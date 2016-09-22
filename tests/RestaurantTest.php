@@ -20,28 +20,60 @@
             Cuisine::deleteAll();
         }
 
-        function test_getName()
-        {
-            //ARRANGE
-            $name = "McDrugs";
-            $id = null;
-            $test_cuisine = new Restaurant($id, $name);
-            //ACT
-            $result = $test_cuisine->getName();
-            //ASSERT
-            $this->assertEquals($name, $result);
-        }
-
         function test_getId()
         {
             //ARRANGE
-            $name = "McDrugs";
-            $id = 1;
-            $test_cuisine = new Restaurant($id, $name);
+            $cuisine_name = "Chinese";
+            $test_cuisine = new Cuisine($cuisine_name);
+            $test_cuisine->save();
+            $cuisine_id = $test_cuisine->getId();
+
+            $restaurant_id = 1;
+            $restaurant_name = "McDrugs";
+            $test_restaurant = new Restaurant($restaurant_id, $restaurant_name, $cuisine_id);
+
             //ACT
-            $result = $test_cuisine->getId();
+            $result = $test_restaurant->getId();
             //ASSERT
-            $this->assertEquals(true, is_numeric($result));
+            $this->assertEquals($restaurant_id, $result);
+            //make sure id returned is the one we put in, not null.
+        }
+        function test_getName()
+        {
+            //ARRANGE
+            $cuisine_name = "Chinese";
+            $test_cuisine = new Cuisine($cuisine_name);
+            $test_cuisine->save();
+            $cuisine_id = $test_cuisine->getId();
+            //there is no need to pass in id because it IS NULL by default
+
+            $restaurant_id = null;
+            $restaurant_name = "McDrugs";
+            $test_restaurant = new Restaurant($restaurant_id, $restaurant_name, $cuisine_id);
+            //ACT
+            $result = $test_restaurant->getName();
+            //ASSERT
+            // id is null in this case, but that is not what we are testing. We are only interested in the description.
+            $this->assertEquals($restaurant_name, $result);
+        }
+        function test_setName()
+        {
+            //ARRANGE
+            $cuisine_name = "Chinese";
+            $test_cuisine = new Cuisine($cuisine_name);
+            $test_cuisine->save();
+            $cuisine_id = $test_cuisine->getId();
+
+            $restaurant_id = null;
+            $restaurant_name = "McDrugs";
+            $test_restaurant = new Restaurant($restaurant_id, $restaurant_name, $cuisine_id);
+            $new_restaurant_name = "Rosarios";
+
+            //ACT
+            $test_restaurant->setName($new_restaurant_name);
+            $result = $test_restaurant->getName();
+            //ASSERT
+            $this->assertEquals($new_restaurant_name, $result);
         }
 
         function test_save()

@@ -71,13 +71,10 @@ class Restaurant
               }
           }
           return $found_restaurant;
-
       }
-
       static function deleteAll()
       {
           $GLOBALS['DB']->exec("DELETE FROM Restaurants;");
-
       }
 
   }

@@ -17,6 +17,7 @@
         protected function tearDown()
         {
             Cuisine::deleteAll();
+            Restaurant::deleteAll();
         }
 
         function test_getName()
@@ -68,6 +69,26 @@
           $result = Cuisine::getAll();
           //ASSERT
           $this->assertEquals([$test_cuisine, $test_cuisine2], $result);
+        }
+        function test_find()
+        {
+            //ARRANGE
+            // create more than one task so that we can be sure we can locate the one we are interested in.
+            $cuisine_name = "Chinese";
+            $id = 1;
+            $cuisine_name2 = "Colombiana";
+            $test_cuisine = new Cuisine($id, $cuisine_name);
+            $test_cuisine->save(); // id is assigned to name by database
+            $test_cuisine2 = new Cuisine($id, $cuisine_name2);
+            $test_cuisine2->save();
+
+            //ACT
+            // find a task bu using the id assigned during the save method.
+            $result = Cuisine::find($test_cuisine->getId());
+
+            //ASSERT
+            // we are now gonna make sure we found the one we wete looking for
+            $this->assertEquals($test_cuisine, $result);
         }
     }
 ?>
