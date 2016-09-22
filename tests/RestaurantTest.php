@@ -85,12 +85,29 @@
 
             //ASSERT
             $this->assertEquals([$test_restaurant, $test_restaurant2], $result);
-
-
         }
 
+        function test_find()
+        {
+            //ARRANGE
+            // create more than one task so that we can be sure we can locate the one we are interested in.
+            $restaurant_name = "McDrugs";
+            $id = null;
+            $restaurant_name2 = "Rosarios";
+            $cuisine_id = 1;
+            $test_restaurant = new Restaurant($id, $restaurant_name, $cuisine_id);
+            $test_restaurant->save(); // id is assigned to name by database
+            $test_restaurant2 = new Restaurant($id, $restaurant_name2, $cuisine_id);
+            $test_restaurant2->save();
 
+            //ACT
+            // find a task bu using the id assigned during the save method.
+            $result = Restaurant::find($test_restaurant->getId());
 
+            //ASSERT
+            // we are now gonna make sure we found the one we wete looking for
+            $this->assertEquals($test_restaurant, $result);
+        }
 
  }
 
