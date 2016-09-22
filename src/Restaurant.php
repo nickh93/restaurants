@@ -31,6 +31,11 @@ class Restaurant
           return $this->name;
       }
 
+      function setCuisineId($cuisine_id)
+      {
+          $this->id = $cuisine_id;
+      }
+
       function getCuisineId()
       {
           return $this->cuisine_id;
